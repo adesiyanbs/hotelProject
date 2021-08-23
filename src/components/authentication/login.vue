@@ -79,8 +79,8 @@ export default {
       firebase
           .auth()
           .signInWithEmailAndPassword(this.email, this.password)
-          .then(() => {
-            alert('Successfully logged in');
+          .then((res) => {
+          localStorage.setItem('user',res.user.uid)
             this.$router.push('/dash');
           })
           .catch(error => {

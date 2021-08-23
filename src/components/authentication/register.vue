@@ -87,9 +87,10 @@ export default {
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password).
       then((res) => {
+        localStorage.setItem('user',res.user.uid)
         db.ref('users').push({id : res.user.uid, fullName : this.fullName})
         alert('Successfully registered! Please login.');
-        this.$router.push('/');
+        this.$router.push('/login');
       })
           .catch(error => {
             alert(error.message);

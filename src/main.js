@@ -19,7 +19,7 @@ import Flutterwave from 'vue-flutterwave'
 import App from './App.vue'
 import { firestorePlugin } from 'vuefire'
 Vue.use(firestorePlugin)
-Vue.use(Flutterwave, { publicKey: 'FLWPUBK-adf7233a615220fe0cd6e7ac9923de19-X' })
+Vue.use(Flutterwave, { publicKey: 'FLWPUBK_TEST-15c072025c5e56e99e4c859a7e0660b4-X' })
 
 Vue.use(Chakra)
 
