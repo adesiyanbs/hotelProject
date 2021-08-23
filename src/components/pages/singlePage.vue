@@ -56,6 +56,10 @@ export default {
   },
   methods:{
     bookRoom(){
+      if (!this.adult || !this.date){
+
+        alert("Complete form")
+      }
       this.storeBook({hotelId :  localStorage.getItem('room'), date : this.date, adult : this.adult})
       // this.$launchFlutterwave({
       //   tx_ref: Date.now(),
