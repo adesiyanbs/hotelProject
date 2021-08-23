@@ -1,8 +1,8 @@
 <template>
   <c-box pt="34px" px="46px">
     <c-box float="right">
-     
-      <c-box as='router-link' to='/'><c-text mt="10px" fontSize="15px" fontWeight="700">Logout</c-text></c-box>
+
+      <c-box as='router-link' to='/'><c-text mt="10px" fontSize="15px" fontWeight="700" @click="logout">Logout</c-text></c-box>
     </c-box>
     <c-box mt="29px">
       <c-text fontSize="38.6px" fontWeight="700">Welcome</c-text>
@@ -18,15 +18,16 @@
               <c-text>Adults: 1</c-text>
               <c-text>Check In date: 12/02/2022</c-text>
                 <c-box mt='20px'><c-button >Book Now</c-button></c-box>
-            
+
           </c-box>
         </c-flex>
     </c-box>
-    
+
   </c-box>
 </template>
 <script>
 import { CBox, CFlex, CText,CButton } from "@chakra-ui/vue";
+import firebase from 'firebase';
 export default {
   name: "Dashboard",
   components: {
@@ -35,6 +36,21 @@ export default {
     CText,
     CButton
   },
+  methods:{
+    logout(){
+      firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            alert('Successfully logged out');
+            this.$router.push('/');
+          })
+          .catch(error => {
+            alert(error.message);
+            this.$router.push('/');
+          });
+    }
+  }
 };
 </script>
 <style scoped>

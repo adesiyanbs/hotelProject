@@ -1,7 +1,7 @@
 <template>
   <c-box mx='auto' pt="40px" w='90%'>
     <c-flex boxShadow='md' pb='10px' px='10px' w='90%' mx='auto' justify='space-between'>
-            <c-box><c-text fontSize='24px' fontWeight='700'>Hotel.me</c-text></c-box>
+            <c-box><c-text fontSize='24px' fontWeight='700'>Starklue Hotel</c-text></c-box>
             <c-box as='router-link' to ='/login'><c-text fonSize='16px' mt='15px'>Account</c-text></c-box>
         </c-flex>
 
@@ -19,35 +19,28 @@
       </c-box>
       <c-form-control >
           <c-form-label>Fullname</c-form-label>
-        <c-input-group  mb="36px">
-         
+        <c-input-group  mb="36px" v-model="fullName">
+
           <c-input borderRadius="5px" h="59x" placeholder="fullname" />
         </c-input-group>
       </c-form-control>
       <c-form-control >
           <c-form-label>Email</c-form-label>
         <c-input-group  mb="36px">
-         
-          <c-input borderRadius="5px" h="59x" placeholder="email" type='email' />
-        </c-input-group>
-      </c-form-control>
-      <c-form-control >
-          <c-form-label>Username</c-form-label>
-        <c-input-group  mb="36px">
-         
-          <c-input borderRadius="5px" h="59x" placeholder="username" />
+
+          <c-input borderRadius="5px" h="59x" placeholder="email" type='email' v-model="email"/>
         </c-input-group>
       </c-form-control>
       <c-form-control>
           <c-form-label>Password</c-form-label>
         <c-input-group mb='48px'>
-         
-          <c-input borderRadius="5px" h="59x" placeholder="Password" />
+
+          <c-input borderRadius="5px" h="59x" placeholder="Password" v-model="password" />
         </c-input-group>
 
-        
+
       </c-form-control>
-      <c-button as='router-link' to='/' mb='53px' h='50px' color='white' w='100%' borderRadius='12px' bg='#267FFF' fontSize='26px' fontWeight='400' >Register</c-button> 
+      <c-button  mb='53px' h='50px' color='white' w='100%' borderRadius='12px' bg='#267FFF' fontSize='26px' fontWeight='400' @click="register" >Register</c-button>
     </c-box>
     <c-box as='router-link' to='/login' mt='32px' textAlign='center'>
         <c-text>Already have an account Login</c-text>
@@ -65,6 +58,9 @@ import {
   CInputGroup,
   CFormLabel
 } from "@chakra-ui/vue";
+import firebase from 'firebase';
+import {db} from "../../firebase-config";
+
 export default {
   name: "Register",
   components: {
@@ -77,6 +73,29 @@ export default {
     CInputGroup,
     CFormLabel
   },
+  data(){
+    return{
+      fullName : "",
+      email :"",
+      username : "",
+      password : ""
+    }
+  },
+  methods:{
+    register(){
+      firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password).
+      then((res) => {
+        db.ref('users').push({id : res.user.uid, fullName : this.fullName})
+        alert('Successfully registered! Please login.');
+        this.$router.push('/');
+      })
+          .catch(error => {
+            alert(error.message);
+          });
+    }
+  }
 };
 </script>
 <style scoped>
