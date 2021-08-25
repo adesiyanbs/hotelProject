@@ -32,7 +32,7 @@
       </c-form-control>
     </c-box>
     <c-box as='router-link' to='/register' mt='32px' textAlign='center'>
-        <c-text>Dont have an account Signup</c-text>
+        <c-text>Don't have an account Signup</c-text>
     </c-box>
   </c-box>
 </template>
