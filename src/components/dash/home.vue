@@ -2,7 +2,7 @@
   <c-flex w="100%">
     <c-box h='100vh' w="25%" bg="rgba(0, 131, 201, 0.09)" pl="32px" py="40px">
       <c-box>
-        
+
         <c-text fontWeight="700" fontSize="25px" mt="20px" color="#267FFF"
           >Welcome</c-text
         >
@@ -15,7 +15,7 @@
         <c-box  as='router-link'
         to='/dash'>
           <c-box
-       
+
           borderTopLeftRadius="10px"
           borderBottomLeftRadius="10px"
           bg="#FBFCFF"
@@ -34,9 +34,9 @@
         </c-box>
         </c-box>
         <c-box as='router-link'
-        to='/checkout'>
+        to='/'>
           <c-box
-        
+
         mt='20px'
           borderTopLeftRadius="10px"
           borderBottomLeftRadius="10px"
@@ -49,42 +49,42 @@
             <c-box><img src="../../assets/dash.svg" alt=""/></c-box>
             <c-box
               ><c-text fontSize="15px" fontWeight="700"
-                >Checkout</c-text
+                >Book Room</c-text
               ></c-box
             >
           </c-flex>
         </c-box>
         </c-box>
-        <!-- <c-box
-          borderTopLeftRadius="10px"
-          borderBottomLeftRadius="10px"
-          
-          pt="14px"
-          pb="16px"
-          pl="11px"
-        >
-          <c-flex w="50%" justify="space-between">
-            <c-box><img src="../../assets/note.svg" alt=""/></c-box>
-            <c-box
-              ><c-text fontSize="15px" fontWeight="700">Session</c-text></c-box
-            >
-          </c-flex>
-        </c-box> -->
         <c-box
           borderTopLeftRadius="10px"
           borderBottomLeftRadius="10px"
-          
+
           pt="14px"
           pb="16px"
           pl="11px"
         >
           <c-flex w="50%" justify="space-between">
-            <c-box><img src="../../assets/setting.svg" alt=""/></c-box>
+<!--            <c-box><img src="../../assets/note.svg" alt=""/></c-box>-->
             <c-box
-              ><c-text fontSize="15px" fontWeight="700">Settings</c-text></c-box
+              ><c-text fontSize="15px" fontWeight="700"><a href="https://forms.gle/Qo5kwtBp572EFvWbA">Feedback</a></c-text></c-box
             >
           </c-flex>
         </c-box>
+<!--        <c-box-->
+<!--          borderTopLeftRadius="10px"-->
+<!--          borderBottomLeftRadius="10px"-->
+<!--          -->
+<!--          pt="14px"-->
+<!--          pb="16px"-->
+<!--          pl="11px"-->
+<!--        >-->
+<!--          <c-flex w="50%" justify="space-between">-->
+<!--            <c-box><img src="../../assets/setting.svg" alt=""/></c-box>-->
+<!--            <c-box-->
+<!--              ><c-text fontSize="15px" fontWeight="700">Settings</c-text></c-box-->
+<!--            >-->
+<!--          </c-flex>-->
+<!--        </c-box>-->
       </c-box>
       <c-divider mb="15px" mt="23px" />
       <!-- <c-box>
@@ -115,16 +115,16 @@
             <c-box mt='20px'><img src="../../assets/color.svg" alt=""/></c-box>
             <c-box mt='12px'><c-text fontSize='15px' fontWeight='700'>Adebowale Segun</c-text></c-box>
           </c-flex>
-          
+
 
         </c-box>
       </c-box> -->
-      <c-box boxShadow='lg' mr='29px' borderRadius='15px' bg="#fff" mt='26px' px="36px" py="24px">
-          <c-flex>
-              <c-text fontSize='15px' fontWeight='700' mt='-5px' mr='5px'>Notification</c-text>
-              <!-- <c-box><img src="../../assets/bell.svg" alt=""></c-box> -->
-          </c-flex>
-      </c-box>
+<!--      <c-box boxShadow='lg' mr='29px' borderRadius='15px' bg="#fff" mt='26px' as='router-link' px="36px" py="24px" to="https://forms.gle/Qo5kwtBp572EFvWbA">-->
+<!--          <c-flex>-->
+<!--              <c-text fontSize='15px' fontWeight='700' mt='-5px' mr='5px'>Feedback</c-text>-->
+<!--              &lt;!&ndash; <c-box><img src="../../assets/bell.svg" alt=""></c-box> &ndash;&gt;-->
+<!--          </c-flex>-->
+<!--      </c-box>-->
     </c-box>
     <c-box w='75%'>
         <main>
@@ -140,9 +140,19 @@ export default {
   components: {
     CBox,
     CFlex,
-    
+
     CText,
     CDivider,
   },
+  methods:{
+    isLogged(){
+      if (!localStorage.getItem('user')){
+        this.$router.push('/login')
+      }
+    }
+  },
+  mounted() {
+    this.isLogged()
+  }
 };
 </script>

@@ -2,13 +2,13 @@
     <c-box pt='30px' >
         <c-flex boxShadow='md' pb='10px' px='10px' w='90%' mx='auto' justify='space-between'>
             <c-box><c-text fontSize='24px' fontWeight='700'>Starklue Hotel</c-text></c-box>
-            <c-box as='router-link' to ='/login'><c-text fonSize='16px' mt='15px'>Account</c-text></c-box>
+            <c-box as='router-link' to ='/dash'><c-text fonSize='16px' mt='15px'>Account</c-text></c-box>
         </c-flex>
-<!--        <c-box w='90%' mx='auto'  pt='100px' >-->
-<!--            <c-box>-->
-<!--                <c-text fontSize='30px' fontWeight='700' textAlign='center'>Find and book hotels in Nigeria</c-text>-->
-<!--                <c-text fontSize='20px' fontWeight='400' textAlign='center'>Search through 00,000 hotels in Nigeria</c-text>-->
-<!--            </c-box>-->
+        <c-box w='90%' mx='auto'  pt='100px' >
+            <c-box>
+                <c-text fontSize='30px' fontWeight='700' textAlign='center'>Find and book rooms in Starklue</c-text>
+                <c-text fontSize='20px' fontWeight='400' textAlign='center'>Have comfort with us</c-text>
+            </c-box>
 <!--            <c-form-control mt='30px' w='90%' mx='auto' >-->
 <!--                <c-flex w='80%' mx='auto' justify='space-between'>-->
 <!--                <c-input w='50%' placeholder='Search for a hotel' />-->
@@ -17,9 +17,9 @@
 <!--                </c-flex>-->
 <!--               <c-box w='10%' mt='20px'  mx='auto'> <c-button py='12px' px='24px' h='48px' >Find Hotel</c-button></c-box>-->
 <!--            </c-form-control>-->
-<!--        </c-box>-->
+        </c-box>
         <c-box mt='30px' w='90%' mx='auto'>
-            <c-box><c-text fontSize='30px' fontWeight='500' textAlign='center'> Top Rooms Today</c-text></c-box>
+            <c-box><c-text fontSize='30px' fontWeight='500' textAlign='center'> Our Rooms</c-text></c-box>
             <c-grid templateColumns='repeat(3,1fr)'>
                 <c-box w='90%' h='auto' border='1px' borderColor='#e5e5e5' mb='30px' v-for="hotel in hotels" v-bind:key="hotel.key">
                     <c-box  w='100%' h='300px' mb='30px' @click="setOne(hotel.id)" >
@@ -35,7 +35,7 @@
     </c-box>
 </template>
 <script>
-import { CBox, CFlex, CText,CFormControl,CInput,CButton,CGrid} from "@chakra-ui/vue";
+import { CBox, CFlex, CText,CGrid} from "@chakra-ui/vue";
 import {db} from "../../firebase-config";
 
 export default {
@@ -43,7 +43,7 @@ export default {
   components: {
     CBox,
     CFlex,
-    CText,CFormControl,CInput,CButton,CGrid
+    CText,CGrid
   },
   data(){
     return{

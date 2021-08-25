@@ -2,7 +2,7 @@
     <c-box w='90%' mx='auto' pt='24px'>
        <c-flex boxShadow='md' pb='10px' px='10px' w='90%' mx='auto' justify='space-between'>
             <c-box><c-text fontSize='24px' fontWeight='700'>Starklue Hotel</c-text></c-box>
-            <c-box><c-text fonSize='16px' mt='15px'>Account</c-text></c-box>
+            <c-box as='router-link' to ='/dash'><c-text fonSize='16px' mt='15px'>Account</c-text></c-box>
         </c-flex>
         <c-flex mt='30px' w='90%' mx='auto' justify='space-between'>
           <c-box w='53%'  h='400px'>
@@ -17,6 +17,10 @@
                   <c-form-control w='70%'>
                     <c-form-label>Check In</c-form-label>
                     <c-input  placeholder='date' type='date' v-model="date"/>
+                  </c-form-control>
+                  <c-form-control w='70%'>
+                    <c-form-label>Check Out</c-form-label>
+                    <c-input  placeholder='date' type='date' v-model="out"/>
                   </c-form-control>
                   <c-form-control>
                     <c-form-label w='20%'>Adults</c-form-label>
@@ -51,36 +55,46 @@ export default {
       hotel : {},
       adult : 0,
       date : "",
-      currency :""
+      currency :"",
+      out :""
     }
   },
   methods:{
     bookRoom(){
+      if (!this.hotel.free){
+        alert("Room not available")
+        return
+      }
+
       if (!this.adult || !this.date){
 
-        alert("Complete form")
+       return  alert("Complete form")
       }
-      this.storeBook({hotelId :  localStorage.getItem('room'), date : this.date, adult : this.adult})
-      // this.$launchFlutterwave({
-      //   tx_ref: Date.now(),
-      //   amount: this.hotel.price/100,
-      //   currency: this.currency,
-      //   payment_options: 'card,mobilemoney,ussd',
-      //   customer: {
-      //     email: 'user@gmail.com',
-      //     phonenumber: '08102909304',
-      //     name: 'yemi desola'
-      //   },
-      //   callback: function(data) {
-      //     console.log(data)
-      //     this.storeBook({hotelId : this.hotelId.key})
-      //   },
-      //   customizations: {
-      //     title: 'Bowen Hotel',
-      //     description: 'Payment for items in cart',
-      //     logo: this.hotel.image
-      //   }
-      // })
+
+
+      const d = this
+
+      this.$launchFlutterwave({
+        tx_ref: Date.now(),
+        amount: this.hotel.price,
+        currency: this.currency,
+        payment_options: 'card,mobilemoney,ussd',
+        customer: {
+          email: localStorage.getItem('email'),
+          phonenumber: '08102909304',
+          name: 'yemi desola'
+        },
+        callback: function(data) {
+          console.log(data)
+          d.storeBook({hotelId :  localStorage.getItem('room'), date : d.date, adult : d.adult, out : d.out, flw_ref : data.flw_ref})
+          alert("Booking successful")
+        },
+        customizations: {
+          title: 'Starklue Hotel',
+          description: 'Payment for items in cart',
+          logo: this.hotel.image
+        }
+      })
     },
     getHotel(){
       const id = localStorage.getItem('room')
@@ -88,9 +102,11 @@ export default {
       response.on('value', snapshot =>{
         this.hotel = snapshot.val()
       })
+      console.log(this.hotel)
     },
     storeBook(data){
-      db.ref('bookings').push({hotelId : data.hotelId, checkIn : data.date, adult : data.adult, user : localStorage.getItem('user')})
+      console.log(data)
+      db.ref('bookings').push({hotelId : data.hotelId, checkIn : data.date,out : data.out, adult : data.adult, user : localStorage.getItem('user'), flw_ref : data.flw_ref})
     }
   },
   mounted() {

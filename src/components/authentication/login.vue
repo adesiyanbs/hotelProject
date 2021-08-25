@@ -7,7 +7,7 @@
 
     <c-box w="12%" mt="40px" mb="45px" mx="auto"
       ><c-text fontWeight="700" fontSize="40px" color="#267FFF"
-        >HOTEL.me</c-text
+        >Starklue hotel</c-text
       ></c-box
     >
     <c-box borderRadius='5px' w="40%" mx="auto" px="37px" class='box' pt="37px">
@@ -25,7 +25,7 @@
 
         <c-input-group mb='48px'>
 
-          <c-input borderRadius="5px" h="59x" placeholder="Password" v-model="password" />
+          <c-input borderRadius="5px" h="59x" placeholder="Password" type="password" v-model="password" />
         </c-input-group>
 
         <c-button  mb='53px' h='50px' color='white' w='100%' borderRadius='12px' bg='#267FFF' fontSize='26px' fontWeight='400' @click="loginUser">Login</c-button>
@@ -81,6 +81,7 @@ export default {
           .signInWithEmailAndPassword(this.email, this.password)
           .then((res) => {
           localStorage.setItem('user',res.user.uid)
+            localStorage.setItem('email', this.email)
             this.$router.push('/dash');
           })
           .catch(error => {

@@ -2,7 +2,7 @@
   <c-box pt="34px" px="46px">
     <c-box float="right">
 
-      <c-box as='router-link' to='/'>
+      <c-box @click="logout" >
         <c-text mt="10px" fontSize="15px" fontWeight="700" @click="logout">Logout</c-text>
       </c-box>
     </c-box>
@@ -21,14 +21,13 @@
         <c-box w='35%' border='1px' py='10px' px='15px'>
           <c-text fontSize='26px' fontWeight='600'>{{ book.hotel.name }}</c-text>
           <c-text>Adults: 1</c-text>
-          <c-text>Check In date: {{ book.checkIn }}</c-text>
+          <c-text>Check In Date: {{ book.checkIn }}</c-text>
+          <c-text>Check Out Date: {{ book.out }}</c-text>
           <c-box mt='20px'>
             <c-button>₦{{ book.hotel.price }}</c-button>
           </c-box>
-
         </c-box>
       </c-flex>
-
     </c-box>
 
   </c-box>
@@ -79,6 +78,7 @@ export default {
               id: key,
               adult: response[key].adult,
               checkIn: response[key].checkIn,
+              out : response[key].out,
               hotel :snapshot.val()
             });
           })
